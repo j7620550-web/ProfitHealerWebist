@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Profit Healer — Mr. Cubas</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #FAF6EF;
+    --cream-dark: #F2EBD9;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #9A7A2E;
+    --navy: #0A1628;
+    --navy-mid: #1A2E4A;
+    --text: #2C2416;
+    --text-muted: #7A6A52;
+    --border: rgba(201,168,76,0.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(250,246,239,0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--navy); letter-spacing: 0.04em; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  .nav-links a { font-size: 13px; font-weight: 400; color: var(--text-muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold-dark); }
+  .nav-cta { background: var(--navy) !important; color: var(--gold) !important; padding: 9px 22px; border-radius: 2px; font-size: 12px !important; font-weight: 500 !important; letter-spacing: 0.08em !important; }
+  .nav-cta:hover { background: var(--navy-mid) !important; }
+
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 4rem 5rem; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; }
+  .hero-bg::before { content: ''; position: absolute; right: -80px; top: 50%; transform: translateY(-50%); width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%); }
+  .hero-ring { position: absolute; right: 100px; top: 50%; transform: translateY(-50%); width: 400px; height: 400px; border-radius: 50%; border: 0.5px solid rgba(201,168,76,0.18); }
+  .hero-ring2 { position: absolute; right: 150px; top: 50%; transform: translateY(-50%); width: 280px; height: 280px; border-radius: 50%; border: 0.5px solid rgba(201,168,76,0.28); }
+  .hero-ring3 { position: absolute; right: 195px; top: 50%; transform: translateY(-50%); width: 130px; height: 130px; border-radius: 50%; background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.4); }
+  .hero-content { position: relative; z-index: 2; max-width: 620px; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 2rem; }
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 72px; font-weight: 300; line-height: 1.1; color: var(--navy); margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: italic; color: var(--gold-dark); }
+  .hero-sub { font-size: 16px; font-weight: 300; color: var(--text-muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 480px; }
+  .hero-actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--navy); color: var(--gold); padding: 14px 32px; border-radius: 2px; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-decoration: none; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; display: inline-block; }
+  .btn-primary:hover { background: var(--navy-mid); transform: translateY(-1px); }
+  .btn-ghost { color: var(--text-muted); font-size: 13px; font-weight: 400; text-decoration: none; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .btn-ghost:hover { color: var(--gold-dark); border-color: var(--gold); }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 2.5rem; border-top: 0.5px solid var(--border); }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; color: var(--navy); }
+  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; letter-spacing: 0.04em; }
+
+  section { padding: 6rem 4rem; }
+  .section-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.15em; color: var(--gold-dark); text-transform: uppercase; display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+  .section-tag::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--navy); line-height: 1.2; letter-spacing: -0.01em; }
+  .section-title em { font-style: italic; color: var(--gold-dark); }
+
+  .pain-strip { background: var(--navy); padding: 4rem; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .pain-item { padding: 2rem 2.5rem; border-right: 0.5px solid rgba(201,168,76,0.2); }
+  .pain-item:last-child { border-right: none; }
+  .pain-quote { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; font-weight: 300; color: rgba(250,246,239,0.7); line-height: 1.6; }
+  .pain-quote::before { content: '"'; color: var(--gold); font-size: 28px; line-height: 0; vertical-align: -8px; margin-right: 2px; }
+
+  .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5px; background: var(--border); border: 0.5px solid var(--border); margin-top: 4rem; }
+  .service-card { background: var(--cream); padding: 3rem; position: relative; overflow: hidden; transition: background 0.3s; }
+  .service-card:hover { background: var(--cream-dark); }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--gold); transition: height 0.35s; }
+  .service-card:hover::before { height: 100%; }
+  .service-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: rgba(201,168,76,0.2); line-height: 1; margin-bottom: 1.5rem; }
+  .service-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; color: var(--navy); margin-bottom: 0.5rem; }
+  .service-duration { font-size: 12px; color: var(--gold-dark); font-weight: 500; letter-spacing: 0.08em; margin-bottom: 1rem; }
+  .service-desc { font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 1.5rem; }
+  .service-includes { display: flex; flex-direction: column; gap: 8px; margin-bottom: 2rem; }
+  .include-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .include-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; }
+  .service-price { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 400; color: var(--navy); }
+  .service-price span { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--text-muted); font-weight: 300; margin-left: 4px; }
+
+  .how-section { background: var(--cream-dark); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 4rem; position: relative; }
+  .steps::before { content: ''; position: absolute; top: 28px; left: 8%; right: 8%; height: 0.5px; background: var(--border); z-index: 0; }
+  .step { padding: 0 2rem; position: relative; z-index: 1; }
+  .step-circle { width: 56px; height: 56px; border-radius: 50%; background: var(--cream); border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--gold-dark); }
+  .step-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--navy); margin-bottom: 0.5rem; }
+  .step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+  .book-section { background: var(--navy); display: grid; grid-template-columns: 1fr 1fr; }
+  .book-left { padding: 6rem 4rem; border-right: 0.5px solid rgba(201,168,76,0.2); }
+  .book-eyebrow { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 500; display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; }
+  .book-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+  .book-title { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--cream); line-height: 1.15; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+  .book-title em { font-style: italic; color: var(--gold); }
+  .book-sub { font-size: 15px; color: rgba(250,246,239,0.55); line-height: 1.8; margin-bottom: 2.5rem; }
+  .book-features { display: flex; flex-direction: column; gap: 12px; }
+  .book-feature { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(250,246,239,0.65); }
+  .book-feature-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .book-right { padding: 6rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+  .book-card { background: rgba(250,246,239,0.04); border: 0.5px solid rgba(201,168,76,0.3); border-radius: 4px; padding: 2.5rem; margin-bottom: 1.5rem; cursor: pointer; transition: background 0.2s, border-color 0.2s; text-decoration: none; display: block; }
+  .book-card:hover { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.55); }
+  .book-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+  .book-card-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--cream); }
+  .book-card-price { font-size: 13px; color: var(--gold); font-weight: 500; background: rgba(201,168,76,0.1); padding: 4px 12px; border-radius: 2px; }
+  .book-card-meta { font-size: 12px; color: rgba(250,246,239,0.4); margin-bottom: 1rem; }
+  .book-card-desc { font-size: 13px; color: rgba(250,246,239,0.5); line-height: 1.7; }
+  .book-card-arrow { display: flex; align-items: center; justify-content: flex-end; margin-top: 1.25rem; font-size: 12px; color: var(--gold); letter-spacing: 0.08em; font-weight: 500; }
+
+  .contact-section { background: var(--cream); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-top: 4rem; align-items: start; }
+  .contact-left p { font-size: 15px; color: var(--text-muted); line-height: 1.9; margin-top: 1.5rem; margin-bottom: 2.5rem; }
+  .contact-detail { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-muted); margin-bottom: 1rem; }
+  .contact-detail-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .form-input { width: 100%; padding: 12px 16px; background: var(--cream-dark); border: 0.5px solid rgba(201,168,76,0.3); border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); outline: none; transition: border-color 0.2s; }
+  .form-input:focus { border-color: var(--gold); }
+  textarea.form-input { resize: vertical; min-height: 120px; }
+  .form-submit { width: 100%; padding: 14px; background: var(--navy); color: var(--gold); border: none; border-radius: 2px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; transition: background 0.2s; }
+  .form-submit:hover { background: var(--navy-mid); }
+
+  footer { background: var(--navy); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 0.5px solid rgba(201,168,76,0.2); }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; color: var(--cream); }
+  .footer-logo span { color: var(--gold); }
+  .footer-copy { font-size: 12px; color: rgba(250,246,239,0.3); }
+  .footer-tagline { font-size: 12px; color: rgba(201,168,76,0.55); font-style: italic; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-content > * { animation: fadeUp 0.7s ease both; }
+  .hero-eyebrow { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.2s; }
+  .hero-sub { animation-delay: 0.3s; }
+  .hero-actions { animation-delay: 0.4s; }
+  .hero-stats { animation-delay: 0.5s; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section, .hero { padding: 5rem 1.5rem 4rem; }
+    .hero h1 { font-size: 48px; }
+    .hero-ring, .hero-ring2, .hero-ring3 { display: none; }
+    .pain-strip { grid-template-columns: 1fr 1fr; padding: 2rem 1.5rem; }
+    .pain-item { padding: 1.5rem; border-right: none; border-bottom: 0.5px solid rgba(201,168,76,0.15); }
+    .services-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .steps::before { display: none; }
+    .book-section { grid-template-columns: 1fr; }
+    .book-left { border-right: none; border-bottom: 0.5px solid rgba(201,168,76,0.2); padding: 4rem 2rem; }
+    .book-right { padding: 3rem 2rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">The Profit <span>Healer</span></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#how">How it works</a>
+    <a href="#book">Book now</a>
+    <a href="#contact">Contact</a>
+    <a href="https://calendly.com/jcubas03clientcomesfirst/inventioncall" target="_blank" class="nav-cta">Book a session</a>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="hero-ring"></div>
+    <div class="hero-ring2"></div>
+    <div class="hero-ring3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Mr. Cubas · The Profit Healer</div>
+    <h1>Heal the block.<br><em>Grow the income.</em></h1>
+    <p class="hero-sub">For solo entrepreneurs, agency owners & content creators who are tired of being brilliant online — and broke in real life. I fix what's underneath.</p>
+    <div class="hero-actions">
+      <a href="https://calendly.com/jcubas03clientcomesfirst/inventioncall" target="_blank" class="btn-primary">Book your session — $500</a>
+      <a href="#services" class="btn-ghost">See what's included</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">$500</div><div class="stat-label">One-time only</div></div>
+      <div><div class="stat-num">1:1</div><div class="stat-label">Personal sessions</div></div>
+      <div><div class="stat-num">3-in-1</div><div class="stat-label">Mindset + Copy + Plan</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="pain-strip">
+  <div class="pain-item"><div class="pain-quote">I post every day but sales never follow</div></div>
+  <div class="pain-item"><div class="pain-quote">I go quiet right before asking for the sale</div></div>
+  <div class="pain-item"><div class="pain-quote">My copy doesn't sound like me</div></div>
+  <div class="pain-item"><div class="pain-quote">I know my worth but can't charge it</div></div>
+</div>
+
+<section id="services">
+  <div class="section-tag">What I offer</div>
+  <div class="section-title">Two ways to work<br>with <em>Mr. Cubas</em></div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Profit Healer Breakthrough</div>
+      <div class="service-duration">90 minutes · Most popular</div>
+      <div class="service-desc">A deep-dive session to clear your mental blocks, rewrite your copy with AI, and walk away with a real plan to start converting — with confidence.</div>
+      <div class="service-includes">
+        <div class="include-item"><div class="include-dot"></div>Deep-dive mindset + business strategy</div>
+        <div class="include-item"><div class="include-dot"></div>Custom AI-powered sales copy (bio, offer, or landing page)</div>
+        <div class="include-item"><div class="include-dot"></div>1-page mindset action plan</div>
+        <div class="include-item"><div class="include-dot"></div>48hr follow-up voice note from Mr. Cubas</div>
+      </div>
+      <div class="service-price">$500 <span>one-time</span></div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">Profit Healer Discovery</div>
+      <div class="service-duration">60 minutes · Focused & fast</div>
+      <div class="service-desc">Perfect if you're ready to get clear fast. We focus on your biggest block, reframe your offer, and map out your next move — all in one powerful hour.</div>
+      <div class="service-includes">
+        <div class="include-item"><div class="include-dot"></div>Focused mindset + offer clarity</div>
+        <div class="include-item"><div class="include-dot"></div>Quick-win AI copy refresh (bio or tagline)</div>
+        <div class="include-item"><div class="include-dot"></div>Clear next-step action plan</div>
+        <div class="include-item"><div class="include-dot"></div>48hr follow-up voice note from Mr. Cubas</div>
+      </div>
+      <div class="service-price">$500 <span>one-time</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section" id="how">
+  <div class="section-tag">The process</div>
+  <div class="section-title">How it <em>works</em></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <div class="step-name">Book your session</div>
+      <div class="step-desc">Choose your session type and secure your spot. Payment collected at booking — simple and seamless.</div>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-name">We go deep</div>
+      <div class="step-desc">We uncover the exact blocks stopping your growth and clear them together in real time on the call.</div>
+    </div>
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-name">Copy gets written</div>
+      <div class="step-desc">Using AI and copywriting expertise, your offer, bio, or page gets rewritten to sound like you — and convert.</div>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-name">You move forward</div>
+      <div class="step-desc">Walk away with a 1-page plan and a 48hr follow-up voice note so you never feel left alone after the call.</div>
+    </div>
+  </div>
+</section>
+
+<div class="book-section" id="book">
+  <div class="book-left">
+    <div class="book-eyebrow">Book a session</div>
+    <div class="book-title">Ready to heal<br>the block &<br><em>grow the bank?</em></div>
+    <p class="book-sub">Spots are limited. This is personal, high-touch work — I only take on clients I know I can truly help.</p>
+    <div class="book-features">
+      <div class="book-feature"><div class="book-feature-dot"></div>One-time payment — no subscriptions</div>
+      <div class="book-feature"><div class="book-feature-dot"></div>Instant calendar booking via Calendly</div>
+      <div class="book-feature"><div class="book-feature-dot"></div>48hr personal follow-up from Mr. Cubas</div>
+      <div class="book-feature"><div class="book-feature-dot"></div>AI-powered copy included in every session</div>
+    </div>
+  </div>
+  <div class="book-right">
+    <a href="https://calendly.com/jcubas03clientcomesfirst/inventioncall" target="_blank" class="book-card">
+      <div class="book-card-top">
+        <div class="book-card-name">Breakthrough Session</div>
+        <div class="book-card-price">$500</div>
+      </div>
+      <div class="book-card-meta">90 minutes · Deep dive · Most popular</div>
+      <div class="book-card-desc">Clear blocks, rewrite your copy with AI, and walk away with a real action plan.</div>
+      <div class="book-card-arrow">Book this session →</div>
+    </a>
+    <a href="https://calendly.com/jcubas03clientcomesfirst/inventioncall" target="_blank" class="book-card">
+      <div class="book-card-top">
+        <div class="book-card-name">Discovery Session</div>
+        <div class="book-card-price">$500</div>
+      </div>
+      <div class="book-card-meta">60 minutes · Focused & fast</div>
+      <div class="book-card-desc">Get clear on your biggest block, reframe your offer, and map your next move in one hour.</div>
+      <div class="book-card-arrow">Book this session →</div>
+    </a>
+  </div>
+</div>
+
+<section class="contact-section" id="contact">
+  <div class="section-tag">Get in touch</div>
+  <div class="contact-grid">
+    <div class="contact-left">
+      <div class="section-title">Have a question<br>for <em>Mr. Cubas?</em></div>
+      <p>Not sure which session is right for you? Send a message and I'll personally get back to you within 24 hours. I'd rather you feel 100% sure before we work together.</p>
+      <div class="contact-detail"><div class="contact-detail-dot"></div>Personal reply within 24 hours</div>
+      <div class="contact-detail"><div class="contact-detail-dot"></div>No sales pressure — ever</div>
+      <div class="contact-detail"><div class="contact-detail-dot"></div>Or book directly via Calendly above</div>
+      <div class="contact-detail"><div class="contact-detail-dot"></div>Please send your inquiry to jcubas03@icloud.com   
+    </div>
+    </div>
+    <div>
+      <div class="form-group">
+        <label class="form-label">Your name</label>
+        <input type="text" class="form-input" placeholder="First & last name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input type="email" class="form-input" placeholder="add@email.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">What's your biggest block right now?</label>
+        <textarea class="form-input" placeholder="Tell me what's going on in your business..."></textarea>
+      </div>
+      <button class="form-submit" onclick="alert('Message sent! Mr. Cubas will be in touch within 24 hours. 💛')">Send message</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">The Profit <span>Healer</span></div>
+  <div class="footer-tagline">"Heal the block. Grow the income."</div>
+  <div class="footer-copy">© 2026 Mr. Cubas · All rights reserved</div>
+</footer>
+
+</body>
+</html>
